@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js example</title>
+    <style> body {padding: 0; margin: 0;} </style>
+    <script src="../p5.min.js"></script>
+    <script src="../addons/p5.dom.min.js"></script>
+    <script src="../addons/p5.sound.min.js"></script>
+    <script src="Main.js"></script>
+    <link rel="stylesheet" type="text/css" href="Index.css">
+  </head>
+  <body>
+
+
+      <div class="buttoncontainer">
+        <button type="button" onclick="swapTool('Line')">Line Tool</button>
+        <button type="button" onclick="swapTool('Brush')">BrushTool</button>
+        <button type="button" onclick="swapTool('Rectangle')">RectangleTool</button>
+        <button type="button" onclick="swapTool('Elipse')">ElipseTool</button>
+        <button type="button" onclick="swapTool('Erase')">EraserTool</button>
+        <input type="color" value="#ff0000" id="strokeColour">
+        <input type="color" value="#ff0000" id="fillColour"> 
+      </div>  
+
+      <div id="canvas">
+        <script src="Main.js"></script>
+        <script src="Brush.js"></script>
+        <script src="Line.js"></script>
+        <script src='Rectangle.js'></script>
+        <script src='Elipse.js'></script>
+        <script src="FloodFill.js"></script>
+        <script src="Stack.js"></script>
+        <script src="Erase.js"></script>
+      </div>
+
+      <div class="options">
+      
+      </div>
+    </div>
+        
+      
+    
+   
+     
+      
+  
+  </body>
+</html>

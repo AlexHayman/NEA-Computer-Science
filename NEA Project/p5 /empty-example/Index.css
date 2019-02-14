@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    background:#1d1d1d;
+    padding-top: 10px;
+}
+
+
+
+ .buttoncontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    margin-right: 20px;
+    
+}
+
+#canvas {
+    margin-right: 20px;
+}
+
+.buttoncontainer button {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 10px;
+    font-family: raleway, sans-serif;
+    background:#303030;
+    border: none;
+    color: white;
+    width: 100%;
+    box-shadow: none;
+}   
+
+.buttoncontainer button:focus {
+    outline: none !important;
+    background: #1d1d1d;
+
+}
+
+.buttoncontainer input  {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 10px;
+    font-family: raleway, sans-serif;
+    background:#303030;
+    border: none;
+    color: white;
+    width: 96px;
+}   
+
+.options {
+    background: #303030;
+    width: 260px;
+}
