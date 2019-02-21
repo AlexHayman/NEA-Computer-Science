@@ -1,7 +1,9 @@
 body {
     display: flex;
-    background:#1d1d1d;
+    background:#202123;
     padding-top: 10px;
+    font-family: "Arial";
+    color: white;
 }
 
 
@@ -11,6 +13,8 @@ body {
     flex-direction: column;
     width: 100px;
     margin-right: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #33333C;
     
 }
 
@@ -23,7 +27,7 @@ body {
     padding-bottom: 50px;
     font-size: 10px;
     font-family: raleway, sans-serif;
-    background:#303030;
+    background:#33333C;
     border: none;
     color: white;
     width: 100%;
@@ -41,13 +45,22 @@ body {
     padding-bottom: 10px;
     font-size: 10px;
     font-family: raleway, sans-serif;
-    background:#303030;
+    background:#33333C;
     border: none;
     color: white;
     width: 96px;
 }   
 
 .options {
-    background: #303030;
+    background: #33333C;
     width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.options .Layers {
+    margin-left: -20px;
+    list-style-type: none;
 }

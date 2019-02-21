@@ -32,6 +32,7 @@ function setup() {
     currentTool = "brush";
     canvas.mousePressed(click);
     mainObjects = new Stack();
+    Layers = new Stack();
     strokeSizeSlider = createSlider(0, 10, 5);
     strokeSizeSlider.position(1150, 20);
     shapeDefualtSize = 30;
