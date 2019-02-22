@@ -1,5 +1,5 @@
 
-var event, mainTool, mainObjects, objects, strokeColour, fillColour, backgroundColor;
+var event, mainTool, mainObjects, objects, strokeColour, fillColour, backgroundColor, Visible;
 window.addEventListener("load", startUp, false);
 
 
@@ -15,6 +15,7 @@ function startUp() {
     fillColourWeb.addEventListener("input", updateFill, false);
     strokeColourWeb.select();
     fillColourWeb.select();
+    Visible = true;
 }
 
 function updateStroke(event) {
@@ -47,7 +48,9 @@ function draw() {
 
     for (objects=0; objects < mainObjects.item.length; objects++) { //displays all the things in the list
         try {
-            mainObjects.item[objects].display();
+            if(Visible) {
+                mainObjects.item[objects].display();
+            }
         }
         catch(e) { 
             
@@ -60,13 +63,37 @@ function swapTool(tool) {
     currentTool = tool;
 }
 
+function ToggleVisible() {
+    if(Visible) {
+        Visible = false;
+    }
+    else {
+        Visible = true;
+    }
+}
+
+function checkDraw(drawingMethod) {
+    if(Visible) {
+    mainObjects.push(drawingMethod);
+    }
+}
+
+function addButton() {
+    var output = '';
+    output = '<div class="individualLayer">' +
+        '<li>Layers</li>' +
+        '<button type="button" onclick="ToggleVisible()">Visible</button>' +
+        '</div>';
+    document.getElementById('Layer').innerHTML += output;
+}
+
 
 function mouseDragged() {
     if (currentTool === "Brush" ) {
-        mainObjects.push(new Brush(strokeSize, strokeColour));
+        checkDraw(new Brush(strokeSize, strokeColour));
     } 
     if (currentTool === "Erase") {
-        mainObjects.push(new Erase(strokeSize, backgroundColor));
+        checkDraw(new Erase(strokeSize, backgroundColor));
 
     }
     if (currentTool === "Rectangle" || currentTool === "Elipse" ) {
@@ -82,29 +109,29 @@ function mouseDragged() {
 
 function mouseReleased() {
     if(currentTool === "Brush") {
-        mainObjects.push("Mouse Released");
+        checkDraw("Mouse Released");
     }
     if(currentTool === "Rectangle") {
-        mainObjects.push("Mouse Released");
+        checkDraw("Mouse Released");
     }
     if(currentTool === "Elipse") {
-        mainObjects.push("Mouse Released");
+        checkDraw("Mouse Released");
     }
     if(currentTool === "Erase") {
-        mainObjects.push("Mouse Released");
+        checkDraw("Mouse Released");
     }
 }
 
 function click() {
     console.log(strokeColour);
     if (currentTool === "Line" ) {
-        mainObjects.push(new Line(strokeSize, strokeColour));
+        checkDraw(new Line(strokeSize, strokeColour));
     }
     if (currentTool === "Rectangle" ) {
-        mainObjects.push(new Rectangle(5, strokeColour, fillColour, mouseX, mouseY)); //makes the shape bigger
+        checkDraw(new Rectangle(5, strokeColour, fillColour, mouseX, mouseY)); //makes the shape bigger
     }
     if (currentTool === "Elipse") {
-        mainObjects.push(new Elipse(5, strokeColour, fillColour, mouseX, mouseY));
+        checkDraw(new Elipse(5, strokeColour, fillColour, mouseX, mouseY));
     }
     if(currentTool === "PaintBucket") {
         FloodFill();
