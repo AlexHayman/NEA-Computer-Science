@@ -1,5 +1,5 @@
 
-var event, mainTool, mainObjects, objects, strokeColour, fillColour, backgroundColor, Visible;
+var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers;
 window.addEventListener("load", startUp, false);
 
 
@@ -15,7 +15,6 @@ function startUp() {
     fillColourWeb.addEventListener("input", updateFill, false);
     strokeColourWeb.select();
     fillColourWeb.select();
-    Visible = true;
 }
 
 function updateStroke(event) {
@@ -32,28 +31,35 @@ function setup() {
     canvas.parent('canvas');
     currentTool = "brush";
     canvas.mousePressed(click);
-    mainObjects = new Stack();
-    Layers = new Stack();
     strokeSizeSlider = createSlider(0, 10, 5);
     strokeSizeSlider.position(1150, 20);
     shapeDefualtSize = 30;
+    Layers = {
+        contents: [],
+        Visibility: [true]
+    };
+    Layers.contents.push(new Stack());
+    LayerCounter = 2;
 }
 
 function draw() {
-  
     strokeSize = strokeSizeSlider.value();
     background(255);
    
     updatePixels();
 
-    for (objects=0; objects < mainObjects.item.length; objects++) { //displays all the things in the list
-        try {
-            if(Visible) {
-                mainObjects.item[objects].display();
+    for (eachLayer=0; eachLayer < Layers.contents.length; eachLayer++) { //displays all the things in the list
+        for(object=0; object < Layers.contents[eachLayer].item.length; object++) {
+            try {
+                if(Layers.Visibility[eachLayer]) {
+                    Layers.contents[eachLayer].item[object].display();
+                }
             }
-        }
-        catch(e) { 
+            catch(err) {
+
+            }
             
+           
         }
     }
     
@@ -63,27 +69,32 @@ function swapTool(tool) {
     currentTool = tool;
 }
 
-function ToggleVisible() {
-    if(Visible) {
-        Visible = false;
+function ToggleVisible(number) {
+    if(Layers.Visibility[number - 1]) {
+        Layers.Visibility[number-1] = false;
     }
     else {
-        Visible = true;
+        Layers.Visibility[number - 1] = true;
     }
 }
 
 function checkDraw(drawingMethod) {
-    if(Visible) {
-    mainObjects.push(drawingMethod);
-    }
+    for(i=0; i < Layers.Visibility.length; i++)
+        if(Layers.Visibility[i]) {
+            Layers.contents[Layers.Visibility.length - 1].push(drawingMethod);
+        }
 }
 
 function addButton() {
+    console.log(LayerCounter)
+    Layers.Visibility.push(true);
+    Layers.contents.push(new Stack());
     var output = '';
     output = '<div class="individualLayer">' +
-        '<li>Layers</li>' +
-        '<button type="button" onclick="ToggleVisible()">Visible</button>' +
+        '<li>Layer ' + LayerCounter + '</li>' +
+        '<button type="button" onclick="ToggleVisible(' + LayerCounter + ')">Visible</button>' +
         '</div>';
+    LayerCounter += 1;
     document.getElementById('Layer').innerHTML += output;
 }
 

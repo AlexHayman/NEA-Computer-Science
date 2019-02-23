@@ -11,9 +11,9 @@ class Line {
         strokeWeight(this.strokeSize);
         stroke(this.Colour);
         strokeCap(SQUARE);
-        if(objects != 0) {
-            if (mainObjects.item[objects-1].name == "Line") {
-                line(this.mX, this.mY, mainObjects.item[objects-1].mX, mainObjects.item[objects-1].mY);
+        if(object != 0) {
+            if (Layers.contents[eachLayer].item[object-1].name == "Line") {
+                line(this.mX, this.mY, Layers.contents[eachLayer].item[object-1].mX, Layers.contents[eachLayer].item[object-1].mY);
             }   
             
         }
