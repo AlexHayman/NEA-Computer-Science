@@ -1,5 +1,5 @@
 
-var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers;
+var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers, currentLayer;
 window.addEventListener("load", startUp, false);
 
 
@@ -15,6 +15,7 @@ function startUp() {
     fillColourWeb.addEventListener("input", updateFill, false);
     strokeColourWeb.select();
     fillColourWeb.select();
+
 }
 
 function updateStroke(event) {
@@ -40,6 +41,7 @@ function setup() {
     };
     Layers.contents.push(new Stack());
     LayerCounter = 2;
+    currentLayer = 1;
 }
 
 function draw() {
@@ -86,7 +88,8 @@ function checkDraw(drawingMethod) {
 }
 
 function addButton() {
-    console.log(LayerCounter)
+    console.log(LayerCounter);
+    currentLayer += 1;
     Layers.Visibility.push(true);
     Layers.contents.push(new Stack());
     var output = '';
@@ -100,8 +103,8 @@ function addButton() {
 
 
 function mouseDragged() {
-    if (currentTool === "Brush" ) {
-        checkDraw(new Brush(strokeSize, strokeColour));
+    if (currentTool === "PaintBrush" ) {
+        checkDraw(new PaintBrush(strokeSize, strokeColour));
     } 
     if (currentTool === "Erase") {
         checkDraw(new Erase(strokeSize, backgroundColor));
@@ -109,17 +112,17 @@ function mouseDragged() {
     }
     if (currentTool === "Rectangle" || currentTool === "Elipse" ) {
         try {
-            if(mainObjects.item[mainObjects.item.length -1])
-            mainObjects.item[mainObjects.item.length -1].drag();
+            Layers.contents[currentLayer-1].item[Layers.contents[currentLayer-1].item.length -1].drag();
         }
         catch(e) {
-
+    
         }
+        
     }
 }
 
 function mouseReleased() {
-    if(currentTool === "Brush") {
+    if(currentTool === "PaintBrush") {
         checkDraw("Mouse Released");
     }
     if(currentTool === "Rectangle") {

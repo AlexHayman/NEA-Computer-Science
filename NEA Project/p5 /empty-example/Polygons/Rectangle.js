@@ -21,7 +21,8 @@ class Rectangle {
         stroke(this.Colour);
         strokeWeight(this.strokeSize);
         rect(this.mX, this.mY, this.sizeX , this.sizeY);
-        noFill();
+        
+        
         
             
     }

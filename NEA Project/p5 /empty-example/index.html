@@ -14,23 +14,26 @@
   <body>
       <div class="buttoncontainer">
         <button type="button" onclick="swapTool('Line')">Line Tool</button>
-        <button type="button" onclick="swapTool('Brush')">BrushTool</button>
+        <button type="button" onclick="swapTool('PaintBrush')">BrushTool</button>
         <button type="button" onclick="swapTool('Rectangle')">RectangleTool</button>
         <button type="button" onclick="swapTool('Elipse')">ElipseTool</button>
         <button type="button" onclick="swapTool('Erase')">EraserTool</button>
+        <p>StrokeColour</p>
         <input type="color" value="#ff0000" id="strokeColour">
+        <p>FillColour</p>
         <input type="color" value="#ff0000" id="fillColour"> 
       </div>  
 
       <div id="canvas">
         <script src="Main.js"></script>
-        <script src="Brush.js"></script>
-        <script src="Line.js"></script>
-        <script src='Rectangle.js'></script>
-        <script src='Elipse.js'></script>
-        <script src="FloodFill.js"></script>
-        <script src="Stack.js"></script>
-        <script src="Erase.js"></script>
+        <script src="Brushes/Brush.js"></script>
+        <script src="Brushes/Line.js"></script>
+        <script src='Polygons/Rectangle.js'></script>
+        <script src='Polygons/Elipse.js'></script>
+        <script src="Algorithms/FloodFill.js"></script>
+        <script src="DataStructes/Stack.js"></script>
+        <script src="Brushes/Erase.js"></script>
+        <script src="Brushes/PaintBrush.js"></script>
       </div>
 
       <div class="options">

@@ -20,7 +20,7 @@ class Elipse {
         fill(this.Fill);
         stroke(this.Colour);
         strokeWeight(this.strokeSize);
-        ellipse(this.mX, this.mY, this.sizeX * 2, this.sizeY * 2);
+        ellipse(this.mX, this.mY, this.sizeX * 2.75, this.sizeY * 2.75);
             
     }
 

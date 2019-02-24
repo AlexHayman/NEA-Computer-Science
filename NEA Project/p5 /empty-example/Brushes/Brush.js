@@ -1,10 +1,11 @@
-class Brush { 
-    constructor(strokeSize, Colour) {
+class Brush {
+    constructor(strokeSize, name, Colour) {
         this.strokeSize = strokeSize;
         this.Colour = Colour;
-        this.name = "Brush";
+        this.name = name;
         this.mX = mouseX;
         this.mY = mouseY;
+
     }
 
     display() {
@@ -12,10 +13,13 @@ class Brush {
         strokeWeight(this.strokeSize);
         stroke(this.Colour);
         if(object != 0) {
-            if (Layers.contents[eachLayer].item[object-1].name == "Brush") {
+            if (Layers.contents[eachLayer].item[object-1].name == this.name) {
                 line(this.mX, this.mY, Layers.contents[eachLayer].item[object-1].mX, Layers.contents[eachLayer].item[object-1].mY);
             }   
             
         }
     }
 }
+
+
+

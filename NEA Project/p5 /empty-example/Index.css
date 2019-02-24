@@ -15,7 +15,6 @@ body {
     margin-right: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: #33333C;
-    
 }
 
 #canvas {
@@ -41,7 +40,7 @@ button {
 }
 
 .buttoncontainer input  {
-    padding-top: 10px;
+    padding-top: 5px;
     padding-bottom: 10px;
     font-size: 10px;
     font-family: raleway, sans-serif;
@@ -51,6 +50,11 @@ button {
     width: 96px;
 }   
 
+.buttoncontainer p {
+    font-size: 12px;
+    padding-left: 10px;
+    padding-bottom: -20px;
+}
 .options {
     background: #33333C;
     width: 260px;
@@ -70,7 +74,19 @@ button {
     border: 1px solid;
 }
 
-.options button {
+.options .LayerManipulation {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.options .LayerManipulation button {
+    border: 1px solid white;
+    width: 20%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
+.options .Layers button {
     width: 25%;
     padding-top: 0px;
     padding-bottom: 0px;
