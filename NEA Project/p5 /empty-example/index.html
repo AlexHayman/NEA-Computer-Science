@@ -13,11 +13,11 @@
   </head>
   <body>
       <div class="buttoncontainer">
-        <button type="button" onclick="swapTool('Line')">Line Tool</button>
-        <button type="button" onclick="swapTool('PaintBrush')">BrushTool</button>
-        <button type="button" onclick="swapTool('Rectangle')">RectangleTool</button>
-        <button type="button" onclick="swapTool('Elipse')">ElipseTool</button>
-        <button type="button" onclick="swapTool('Erase')">EraserTool</button>
+        <button id="Line" type="button" onclick="swapTool('Line')">Line Tool</button>
+        <button id="PaintBrush" type="button" onclick="swapTool('PaintBrush')">BrushTool</button>
+        <button id="Rectangle" type="button" onclick="swapTool('Rectangle')">RectangleTool</button>
+        <button id="Elipse" type="button" onclick="swapTool('Elipse')">ElipseTool</button>
+        <button id="Erase" type="button" onclick="swapTool('Erase')">EraserTool</button>
         <p>StrokeColour</p>
         <input type="color" value="#ff0000" id="strokeColour">
         <p>FillColour</p>
@@ -27,6 +27,7 @@
       <div id="canvas">
         <script src="Main.js"></script>
         <script src="Brushes/Brush.js"></script>
+        <script src="Polygons/Polygon.js"></script>
         <script src="Brushes/Line.js"></script>
         <script src='Polygons/Rectangle.js'></script>
         <script src='Polygons/Elipse.js'></script>
@@ -34,6 +35,7 @@
         <script src="DataStructes/Stack.js"></script>
         <script src="Brushes/Erase.js"></script>
         <script src="Brushes/PaintBrush.js"></script>
+   
       </div>
 
       <div class="options">

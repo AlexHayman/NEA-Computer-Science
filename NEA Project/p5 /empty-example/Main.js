@@ -1,5 +1,5 @@
 
-var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers, currentLayer;
+var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers, currentLayer, previousTool;
 window.addEventListener("load", startUp, false);
 
 
@@ -42,6 +42,7 @@ function setup() {
     Layers.contents.push(new Stack());
     LayerCounter = 2;
     currentLayer = 1;
+    previousTool = "";
 }
 
 function draw() {
@@ -69,6 +70,12 @@ function draw() {
 
 function swapTool(tool) {
     currentTool = tool;
+    console.log( document.getElementById(tool));
+    if(previousTool != "") {
+        document.getElementById(previousTool).style.background = "#33333C";
+    }
+    document.getElementById(tool).style.background = "#1d1d1d";
+    previousTool = tool;
 }
 
 function ToggleVisible(number) {
@@ -137,7 +144,6 @@ function mouseReleased() {
 }
 
 function click() {
-    console.log(strokeColour);
     if (currentTool === "Line" ) {
         checkDraw(new Line(strokeSize, strokeColour));
     }
