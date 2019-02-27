@@ -35,17 +35,19 @@
         <script src="DataStructes/Stack.js"></script>
         <script src="Brushes/Erase.js"></script>
         <script src="Brushes/PaintBrush.js"></script>
+       
    
       </div>
 
       <div class="options">
+          <h2>Stroke Size</h2>
           <div class="LayerManipulation">
             <button type="button" onclick="addButton()">Add</button>
           </div>
           <div class="Layers" id="Layer">
             <div class="individualLayer">
                 <li>Layer 1</li>
-                <button type="button" onclick="ToggleVisible(1)">Visible</button>
+                <button type="button" id="visibleButton1" onclick="ToggleVisible(1)">Visible</button>
             </div>
           </div>
       </div>
