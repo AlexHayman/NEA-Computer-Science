@@ -1,6 +1,7 @@
 
-var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers, currentLayer, previousTool, dragging;
+var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, LayerCounter, Layers, currentLayer, previousTool, dragging, activeLayer;
 window.addEventListener("load", startUp, false);
+
 
 
 function startUp() {
@@ -15,7 +16,9 @@ function startUp() {
     fillColourWeb.addEventListener("input", updateFill, false);
     strokeColourWeb.select();
     fillColourWeb.select();
-
+    var element = document.getElementById("LayerCounter1");
+    element.addEventListener('click', Layer);
+    document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d";
 }
 
 function updateStroke(event) {
@@ -33,22 +36,24 @@ function setup() {
     currentTool = "brush";
     canvas.mousePressed(click);
     strokeSizeSlider = createSlider(0, 10, 5);
-    strokeSizeSlider.position(1150, 20);
+    strokeSizeSlider.position(1150, 50);
     shapeDefualtSize = 30;
     Layers = {
         contents: [],
         Visibility: [true]
     };
     Layers.contents.push(new Stack());
-    LayerCounter = 2;
     currentLayer = 1;
+    LayerCounter = 2;
     previousTool = "";
     frameRate(60);
     dragging = false;
+    activeLayer = 1;
 }
 
 function draw() {
     strokeSize = strokeSizeSlider.value();
+    document.getElementById("strokeSize").innerHTML = strokeSize;
     background(255);
 
     for (eachLayer=0; eachLayer < Layers.contents.length; eachLayer++) { //displays all the things in the list
@@ -102,7 +107,7 @@ function ToggleVisible(number) {
 function checkDraw(drawingMethod) {
     for(i=0; i < Layers.Visibility.length; i++)
         if(Layers.Visibility[i]) {
-            Layers.contents[Layers.Visibility.length - 1].push(drawingMethod);
+            Layers.contents[activeLayer - 1].push(drawingMethod);
         }
 }
 
@@ -120,16 +125,20 @@ function checkClick() {
 }
 
 function addButton() {
-    currentLayer += 1;
-    Layers.Visibility.push(true);
-    Layers.contents.push(new Stack());
-    var output = '';
-    output = '<div class="individualLayer">' +
-        '<li>Layer ' + LayerCounter + '</li>' +
-        '<button type="button" id="visibleButton' + LayerCounter + '" onclick="ToggleVisible(' + LayerCounter + ')">Visible</button>' +
-        '</div>';
-    LayerCounter += 1;
-    document.getElementById('Layer').innerHTML += output;
+    if (LayerCounter != 11) {
+        currentLayer += 1;
+        Layers.Visibility.push(true);
+        Layers.contents.push(new Stack());
+        var output = '';
+        output = '<div id="LayerCounter' + LayerCounter + '" class="individualLayer">' +
+            '<li>Layer ' + LayerCounter + '</li>' +
+            '<button type="button" id="visibleButton' + LayerCounter + '" onclick="ToggleVisible(' + LayerCounter + ')">Visible</button>' +
+            '</div>';
+        LayerCounter += 1;
+        document.getElementById('Layer').innerHTML += output;
+
+    }
+    LayerMouseDetection();
 }
 
 
@@ -177,10 +186,10 @@ function click() {
             checkDraw(new Line(strokeSize, strokeColour));
         }
         if (currentTool === "Rectangle" ) {
-            checkDraw(new Rectangle(5, strokeColour, fillColour, mouseX, mouseY)); //makes the shape bigger
+            checkDraw(new Rectangle(strokeSize, strokeColour, fillColour, mouseX, mouseY)); //makes the shape bigger
         }
         if (currentTool === "Elipse") {
-            checkDraw(new Elipse(5, strokeColour, fillColour, mouseX, mouseY));
+            checkDraw(new Elipse(strokeSize, strokeColour, fillColour, mouseX, mouseY));
         }
         if(currentTool === "PaintBucket") {
             FloodFill();

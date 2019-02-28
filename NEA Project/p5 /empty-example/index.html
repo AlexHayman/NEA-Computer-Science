@@ -26,6 +26,7 @@
 
       <div id="canvas">
         <script src="Main.js"></script>
+        <script src="LayerMouseDetection.js"></script>
         <script src="Brushes/Brush.js"></script>
         <script src="Polygons/Polygon.js"></script>
         <script src="Brushes/Line.js"></script>
@@ -35,17 +36,18 @@
         <script src="DataStructes/Stack.js"></script>
         <script src="Brushes/Erase.js"></script>
         <script src="Brushes/PaintBrush.js"></script>
-       
-   
       </div>
 
       <div class="options">
-          <h2>Stroke Size</h2>
+          <div class="Stroke">
+            <h2>Stroke Size</h2>
+            <h3 id="strokeSize">Size</h3>
+          </div>
           <div class="LayerManipulation">
             <button type="button" onclick="addButton()">Add</button>
           </div>
           <div class="Layers" id="Layer">
-            <div class="individualLayer">
+            <div id="LayerCounter1" class="individualLayer">
                 <li>Layer 1</li>
                 <button type="button" id="visibleButton1" onclick="ToggleVisible(1)">Visible</button>
             </div>
