@@ -1,10 +1,37 @@
 body {
-    display: flex;
     background:#202123;
-    padding-top: 10px;
     font-family: "Arial";
     color: white;
+
 }
+
+.ToolBar .ToolBarText  {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #191E23;
+    list-style-type: none;
+    margin-top: 0px;
+    border: 1px solid black;
+    padding-left: 0px;
+   
+}
+
+.ToolBar .ToolBarText li {
+    flex-grow: 1;
+    border: 2px solid #33333C;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.Body {
+    display: flex;
+
+}
+
+
 
 
 

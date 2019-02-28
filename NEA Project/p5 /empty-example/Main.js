@@ -35,8 +35,8 @@ function setup() {
     canvas.parent('canvas');
     currentTool = "brush";
     canvas.mousePressed(click);
-    strokeSizeSlider = createSlider(0, 10, 5);
-    strokeSizeSlider.position(1150, 50);
+    strokeSizeSlider = createSlider(0, 15, 5);
+    strokeSizeSlider.position(1150, 100);
     shapeDefualtSize = 30;
     Layers = {
         contents: [],
@@ -136,11 +136,33 @@ function addButton() {
             '</div>';
         LayerCounter += 1;
         document.getElementById('Layer').innerHTML += output;
+        document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#33333C";  //Switches Active of Layer
+        activeLayer += 1;
+        document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d";
 
     }
     LayerMouseDetection();
 }
 
+function clearCanvas() {
+    output = '<div id="LayerCounter' + LayerCounter + '" class="individualLayer">' +
+            '<li>Layer ' + LayerCounter + '</li>' +
+            '<button type="button" id="visibleButton' + LayerCounter + '" onclick="ToggleVisible(' + LayerCounter + ')">Visible</button>' +
+            '</div>';
+    for(var i=currentLayer; i >  1; i--) {
+        document.getElementById('LayerCounter' + i).outerHTML = "";
+    
+    }  //Get Rid of all the Layers
+    currentLayer = 1;
+    LayerCounter = 2;
+    Layers = {
+        contents: [],
+        Visibility: [true]
+    };
+    Layers.contents.push(new Stack());
+    activeLayer = 1;
+    document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d"; //Reset Layers and content
+}
 
 function mouseDragged() {
     if(checkClick()) {
