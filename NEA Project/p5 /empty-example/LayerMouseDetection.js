@@ -1,5 +1,5 @@
-function LayerMouseDetection() {
-    for(var i=1; i < LayerCounter; i++) {
+function LayerClickDetection() {
+    for(var i=1; i < currentLayer + 1; i++) {
         var element = document.getElementById("LayerCounter" + i);
         element.addEventListener('click', Layer);
     }
