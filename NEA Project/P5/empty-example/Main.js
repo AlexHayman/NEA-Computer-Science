@@ -130,20 +130,18 @@ function checkDraw(drawingMethod) {
 }
 
 function checkClick() {
-    if ((0 < mouseX  && mouseX < width) && (0 < mouseY && mouseY < height)) {
+    if ((0 < mouseX  && mouseX < width) && (0 < mouseY && mouseY < height) && dragging != true) {
         return true;
     }
     else if (dragging) {
         dragging = false;
         return true;
     }
-  
-    
     return false;
 }
 
 function addButton() {
-    if (currentLayer != 10) {
+    if (currentLayer != 9) {
         currentLayer += 1;
         Layers.Visibility.push(true);
         Layers.contents.push(new Stack());
@@ -214,5 +212,29 @@ function click() {
     }
 }
 
-
+function undo() {
+    var i = Layers.contents[currentLayer - 1].item.length - 2;
+    var isLine = false;
+    if( Layers.contents[currentLayer - 1].item.length != 0) {
+        if(Layers.contents[currentLayer-1].peek().name === "Line") {
+            isLine = true;
+        }
+        Layers.contents[currentLayer - 1].pop()  
+    }
+    if( Layers.contents[currentLayer - 1].item.length != 0) {
+        if(Layers.contents[currentLayer-1].peek().name != "Line") {
+            if(isLine) {
+                console.log("sdlksdkl")
+                Layers.contents[currentLayer - 1].pop() 
+            }
+        }
+    }
+    while ((Layers.contents[currentLayer-1].peek() != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) {
+        if(Layers.contents[currentLayer-1].peek().name === "Line" ) {
+            break
+        }
+        Layers.contents[currentLayer - 1].pop()    
+    }
+    
+}
 

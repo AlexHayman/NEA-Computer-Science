@@ -103,7 +103,7 @@ button {
 
 .options .Stroke h2 {
     margin-top: 5px;
-    border: 1px solid
+
 }
 
 .options .Stroke h3 {
@@ -118,10 +118,27 @@ button {
 
 .options  .UndoAndRedo {
     margin-bottom: auto;
-    border: 1px solid;
     margin-top: 0px;
+    border: 1px solid;
 }
 
+.options  .UndoAndRedo  ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    padding-left: 0px;
+    margin: 0;
+    
+}
+
+.options  .UndoAndRedo  li {
+    flex-grow: 1;
+    text-align: center;
+    border: 1px solid;
+    padding: 10px
+    
+}
 .options .individualLayer {
     display: flex;
     justify-content: space-around;
@@ -130,6 +147,7 @@ button {
     padding-bottom: 20px;
     padding-top: 20px;
     border: 1px solid;
+    
 }
 
 .options .LayerManipulation {
