@@ -82,6 +82,7 @@ button {
     padding-left: 10px;
     padding-bottom: -20px;
 }
+
 .options {
     background: #33333C;
     width: 260px;
@@ -92,16 +93,17 @@ button {
 }
 
 .options .Stroke {
-    margin-bottom: auto;
+    margin-bottom: 0px;
     margin-top: 0px;
     padding-left: 10px;
-
     display: flex;
+    border: 1px solid;
 
 }
 
 .options .Stroke h2 {
     margin-top: 5px;
+    border: 1px solid
 }
 
 .options .Stroke h3 {
@@ -114,6 +116,11 @@ button {
     font-size: 12px;
 }
 
+.options  .UndoAndRedo {
+    margin-bottom: auto;
+    border: 1px solid;
+    margin-top: 0px;
+}
 
 .options .individualLayer {
     display: flex;

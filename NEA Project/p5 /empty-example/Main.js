@@ -94,7 +94,6 @@ function draw() {
 
             }
             
-           
         }
     }
 }
@@ -211,9 +210,7 @@ function click() {
         if (currentTool === "Elipse") {
             checkDraw(new Elipse(strokeSize, strokeColour, fillColour, mouseX, mouseY));
         }
-        if(currentTool === "PaintBucket") {
-            FloodFill();
-        }
+      
     }
 }
 
