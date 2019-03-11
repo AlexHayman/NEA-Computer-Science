@@ -8,7 +8,7 @@ function LayerClickDetection() {
 }
 
 function Layer() {
-    document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#33333C";
-    activeLayer = parseInt(this.id.slice(-1));
-    document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d";
+    document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#33333C";
+    currentLayer = parseInt(this.id.slice(-1));
+    document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d";
 }

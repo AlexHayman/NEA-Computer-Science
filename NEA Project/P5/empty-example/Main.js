@@ -1,5 +1,5 @@
 
-var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, Layers, previousTool, dragging, activeLayer;
+var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, Layers, previousTool, dragging, activeLayer, redoStack  ;
 window.addEventListener("load", startUp, false);
 
 
@@ -42,12 +42,13 @@ function setup() {
         contents: [],
         Visibility: [true]
     };
-    Layers.contents.push(new Stack());
+    Layers.contents.push(new ArrayStructure());
     currentLayer = 1;
     previousTool = "";
     frameRate(60);
     dragging = false;
     activeLayer = 1;
+    redoStack = new Stack();
 }
 
 function clearCanvas() {
@@ -64,7 +65,7 @@ function clearCanvas() {
         contents: [],
         Visibility: [true]
     };
-    Layers.contents.push(new Stack());
+    Layers.contents.push(new ArrayStructure());
     activeLayer = 1;
     document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d"; //Reset Layers and content
 }
@@ -123,9 +124,8 @@ function ToggleVisible(number) {
 }
 
 function checkDraw(drawingMethod) {
-    for(i=0; i < Layers.Visibility.length; i++)
-        if(Layers.Visibility[i]) {
-            Layers.contents[activeLayer - 1].push(drawingMethod);
+    if(Layers.Visibility[currentLayer - 1]) {
+            Layers.contents[currentLayer - 1].push(drawingMethod);
         }
 }
 
@@ -144,7 +144,7 @@ function addButton() {
     if (currentLayer != 9) {
         currentLayer += 1;
         Layers.Visibility.push(true);
-        Layers.contents.push(new Stack());
+        Layers.contents.push(new ArrayStructure());
         var output = '';
         output = '<div id="LayerCounter' + currentLayer+ '" class="individualLayer">' +
             '<li>Layer ' + currentLayer + '</li>' +
@@ -213,28 +213,28 @@ function click() {
 }
 
 function undo() {
-    var i = Layers.contents[currentLayer - 1].item.length - 2;
     var isLine = false;
-    if( Layers.contents[currentLayer - 1].item.length != 0) {
-        if(Layers.contents[currentLayer-1].peek().name === "Line") {
-            isLine = true;
-        }
-        Layers.contents[currentLayer - 1].pop()  
-    }
-    if( Layers.contents[currentLayer - 1].item.length != 0) {
-        if(Layers.contents[currentLayer-1].peek().name != "Line") {
-            if(isLine) {
-                console.log("sdlksdkl")
-                Layers.contents[currentLayer - 1].pop() 
+    if(Layers.Visibility[currentLayer - 1]) {
+        if( Layers.contents[currentLayer - 1].item.length != 0) {
+            if (Layers.contents[currentLayer - 1].item.length >= 3) {
+                if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" && Layers.contents[currentLayer-1].lastElement(2).name === "Line" && Layers.contents[currentLayer-1].lastElement(3).name != "Line") {
+                    isLine = true;
+                }
             }
+            else {
+                isLine = true;
+            }
+            redoStack.push(Layers.contents[currentLayer - 1].pop());
+        }
+        if(isLine) {
+            redoStack.push(Layers.contents[currentLayer - 1].pop());
+        }
+        while ((Layers.contents[currentLayer-1].lastElement(1) != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) {
+            if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" ) {
+                break;
+            }
+            redoStack.push(Layers.contents[currentLayer - 1].pop());
         }
     }
-    while ((Layers.contents[currentLayer-1].peek() != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) {
-        if(Layers.contents[currentLayer-1].peek().name === "Line" ) {
-            break
-        }
-        Layers.contents[currentLayer - 1].pop()    
-    }
-    
 }
 
