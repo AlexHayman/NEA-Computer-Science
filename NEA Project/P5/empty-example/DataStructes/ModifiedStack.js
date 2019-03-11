@@ -1,7 +1,8 @@
-class Stack  {
+class ModifiedStack  {
 
-    constructor() {
+    constructor(Length) {
         this.item = [];
+        this.length = Length;
     }
 
     push(element) {
@@ -9,7 +10,7 @@ class Stack  {
     }
 
     pop() {
-        if(this.item.length == 0) {
+        if(this.item.length === 0) {
             return "Underflow";
         }
         else {
@@ -22,11 +23,15 @@ class Stack  {
     }
 
     isEmpty() {
-        return this.item.length == 0;
+        return this.item.length === 0;
     }
 
-    printStack() {
-        print(this.item);
+    isFull() {
+        return this.item.length >= this.length;
+    }
+
+    removeBottom() {
+        return this.item.splice(0, 1);
     }
     
 }

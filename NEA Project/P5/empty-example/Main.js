@@ -48,7 +48,6 @@ function setup() {
     frameRate(60);
     dragging = false;
     activeLayer = 1;
-    redoStack = new Stack();
 }
 
 function clearCanvas() {
@@ -214,7 +213,7 @@ function click() {
 
 function undo() {
     var isLine = false;
-    if(Layers.Visibility[currentLayer - 1]) {
+  if(Layers.Visibility[currentLayer - 1]) {
         if( Layers.contents[currentLayer - 1].item.length != 0) {
             if (Layers.contents[currentLayer - 1].item.length >= 3) {
                 if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" && Layers.contents[currentLayer-1].lastElement(2).name === "Line" && Layers.contents[currentLayer-1].lastElement(3).name != "Line") {
@@ -224,16 +223,19 @@ function undo() {
             else {
                 isLine = true;
             }
-            redoStack.push(Layers.contents[currentLayer - 1].pop());
+            Layers.contents[currentLayer - 1].pop();
+        }
+        else {
+            isEmpty = true;
         }
         if(isLine) {
-            redoStack.push(Layers.contents[currentLayer - 1].pop());
+            Layers.contents[currentLayer - 1].pop();
         }
-        while ((Layers.contents[currentLayer-1].lastElement(1) != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) {
+         while ((Layers.contents[currentLayer-1].lastElement(1) != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) {
             if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" ) {
                 break;
             }
-            redoStack.push(Layers.contents[currentLayer - 1].pop());
+            Layers.contents[currentLayer - 1].pop();
         }
     }
 }
