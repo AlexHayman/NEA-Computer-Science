@@ -48,7 +48,9 @@ function setup() {
     frameRate(60);
     dragging = false;
     activeLayer = 1;
+
 }
+
 
 function clearCanvas() {
     output = '<div id="LayerCounter' + currentLayer + '" class="individualLayer">' +
