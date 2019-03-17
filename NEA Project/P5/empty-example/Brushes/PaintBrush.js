@@ -3,3 +3,4 @@ class PaintBrush extends Brush {
         super(strokeSize, "PaintBrush", Colour);
     }
 }
+

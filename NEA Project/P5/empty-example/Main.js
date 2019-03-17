@@ -1,5 +1,5 @@
 
-var event, mainTool, objects, strokeColour, fillColour, backgroundColor, VisibleLayers, Layers, previousTool, dragging, activeLayer, redoStack  ;
+var event, mainTool, strokeColour, fillColour, backgroundColor, VisibleLayers, Layers, previousTool, dragging, activeLayer;
 window.addEventListener("load", startUp, false);
 
 
@@ -75,10 +75,10 @@ function draw() {
     document.getElementById("strokeSize").innerHTML = strokeSize;
     background(255);
 
-    for (eachLayer=0; eachLayer < Layers.contents.length; eachLayer++) { //displays all the things in the list
+    for (eachLayer=0; eachLayer < Layers.contents.length; eachLayer++) { //displays all the lines, stokes shapes in the Layers
         for(object=0; object < Layers.contents[eachLayer].item.length; object++) {
             try {
-                if(Layers.Visibility[eachLayer]) {
+                if(Layers.Visibility[eachLayer]) { //won't  display the layer is it's invisible
                 
                     if (Layers.contents[eachLayer].item[object].name === "Pencil") {
                      
@@ -98,7 +98,23 @@ function draw() {
     }
 }
 
-function swapTool(tool) {
+
+function LayerClickDetection() { //creates a clickable event for the layer
+    for(var i=1; i < currentLayer + 1; i++) {
+        var element = document.getElementById("LayerCounter" + i);
+        element.addEventListener('click', Layer);
+    }
+       
+        
+}
+
+function Layer() { //changes the colour of the new layer to dark which means its active
+    document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#33333C";
+    currentLayer = parseInt(this.id.slice(-1));
+    document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d";
+}
+
+function swapTool(tool) {  //swaps the working tool
     currentTool = tool;
     if(previousTool != "") {
         document.getElementById(previousTool).style.background = "#33333C";
@@ -107,7 +123,7 @@ function swapTool(tool) {
     previousTool = tool;
 }
 
-function ToggleVisible(number) {
+function ToggleVisible(number) { //toggle wheter the layer is display or not
     console.log("visibleButton" + number);
     if(Layers.Visibility[number - 1]) {
         Layers.Visibility[number-1] = false;
@@ -122,17 +138,17 @@ function ToggleVisible(number) {
 
 }
 
-function checkDraw(drawingMethod) {
+function checkDraw(drawingMethod) {     //check if the layer you selected is visible. If it isn't don't draw the ting
     if(Layers.Visibility[currentLayer - 1]) {
             Layers.contents[currentLayer - 1].push(drawingMethod);
         }
 }
 
-function checkClick() {
+function checkClick() { //checks if mouse is inside the canvas
     if ((0 < mouseX  && mouseX < width) && (0 < mouseY && mouseY < height) && dragging != true) {
         return true;
     }
-    else if (dragging) {
+    else if (dragging) {  //mouse Release will go off if the user drags the mouse outside the canvas and releases
         dragging = false;
         return true;
     }
@@ -140,19 +156,19 @@ function checkClick() {
 }
 
 function addButton() {
-    if (currentLayer != 9) {
+    if (currentLayer != 9) {   //capped at layer 9
         currentLayer += 1;
         Layers.Visibility.push(true);
-        Layers.contents.push(new ArrayStructure());
-        var output = '';
+        Layers.contents.push(new ArrayStructure());  //adds new layer
+        var output = '';   //html for another button
         output = '<div id="LayerCounter' + currentLayer+ '" class="individualLayer">' +
             '<li>Layer ' + currentLayer + '</li>' +
             '<button type="button" id="visibleButton' + currentLayer + '" onclick="ToggleVisible(' + currentLayer + ')">Visible</button>' +
             '</div>';
         document.getElementById('Layer').innerHTML += output;
-        document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#33333C";  //Switches Active of Layer
+        document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#33333C";  //Switches ActiveLayer colour to normal
         activeLayer = currentLayer;
-        document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d";
+        document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d"; //Switches currenlayer colour to dark
 
     }
     LayerClickDetection();
@@ -170,7 +186,7 @@ function mouseDragged() {
             checkDraw(new Erase(strokeSize, backgroundColor));
 
         }
-        if (currentTool === "Rectangle" || currentTool === "Elipse" ) {
+        if (currentTool === "Rectangle" || currentTool === "Elipse" ) {  //resizing the shape
             
             Layers.contents[currentLayer-1].item[Layers.contents[currentLayer-1].item.length -1].drag();
             
@@ -212,8 +228,8 @@ function click() {
 }
 
 function undo() {
-    var isLine = false;
-  if(Layers.Visibility[currentLayer - 1]) {
+var isLine = false;
+  if(Layers.Visibility[currentLayer - 1]) { //Check if the layer is vivible, if it isnt, don't do it
         if( Layers.contents[currentLayer - 1].item.length != 0) {
             if (Layers.contents[currentLayer - 1].item.length >= 3) {
                 if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" && Layers.contents[currentLayer-1].lastElement(2).name === "Line" && Layers.contents[currentLayer-1].lastElement(3).name != "Line") {
@@ -231,7 +247,7 @@ function undo() {
         if(isLine) {
             Layers.contents[currentLayer - 1].pop();
         }
-         while ((Layers.contents[currentLayer-1].lastElement(1) != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) {
+         while ((Layers.contents[currentLayer-1].lastElement(1) != "Mouse Released")  && Layers.contents[currentLayer - 1].item.length > 0) { //A brush line has mulitple lines, this removes all the line in one go
             if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" ) {
                 break;
             }

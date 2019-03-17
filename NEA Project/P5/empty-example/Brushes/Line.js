@@ -3,3 +3,5 @@ class Line extends Brush {
         super(strokeSize, "Line", Colour);
     }
 }
+
+//

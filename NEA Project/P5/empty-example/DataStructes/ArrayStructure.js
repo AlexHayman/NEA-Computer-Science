@@ -1,3 +1,5 @@
+//Class for an Array for functions. Used this for readability
+
 class ArrayStructure  {
     
     constructor() {

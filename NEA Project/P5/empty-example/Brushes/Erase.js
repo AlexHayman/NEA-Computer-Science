@@ -3,3 +3,4 @@ class Erase extends Brush {
         super(strokeSize, "Erase", Colour);
     }
 }
+
