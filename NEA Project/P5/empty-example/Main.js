@@ -48,9 +48,20 @@ function setup() {
     frameRate(60);
     dragging = false;
     activeLayer = 1;
+    if(window.location.hash === '#canvasDataLoad') {
+        loadCanvas();
+    } 
 
 }
 
+
+
+function loadCanvas() {
+    // var myCanvasData = localStorage['CanvasData'];
+    // localStorage.removeItem('CanvasData');
+    // console.log(myCanvasData)
+
+}
 
 function clearCanvas() {
     output = '<div id="LayerCounter' + currentLayer + '" class="individualLayer">' +
@@ -126,7 +137,6 @@ function swapTool(tool) {  //swaps the working tool
 }
 
 function ToggleVisible(number) { //toggle wheter the layer is display or not
-    console.log("visibleButton" + number);
     if(Layers.Visibility[number - 1]) {
         Layers.Visibility[number-1] = false;
         document.getElementById("visibleButton" + number).innerHTML = "NotVisible";
