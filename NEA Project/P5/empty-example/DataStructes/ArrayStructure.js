@@ -2,8 +2,8 @@
 
 class ArrayStructure  {
     
-    constructor() {
-        this.item = [];
+    constructor(item) {
+        this.item =  item;
     }
 
     push(element) {

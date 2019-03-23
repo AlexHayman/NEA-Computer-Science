@@ -1,5 +1,5 @@
 
-var event, mainTool, strokeColour, fillColour, backgroundColor, VisibleLayers, Layers, previousTool, dragging, activeLayer;
+var event, mainTool, strokeColour, fillColour, backgroundColor, VisibleLayers, Layers, previousTool, dragging, currentLayer, numberLayer;
 window.addEventListener("load", startUp, false);
 
 
@@ -18,7 +18,7 @@ function startUp() {
     fillColourWeb.select();
     var element = document.getElementById("LayerCounter1");
     element.addEventListener('click', Layer);
-    document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d";
+    document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d";
 }
 
 function updateStroke(event) {
@@ -42,33 +42,74 @@ function setup() {
         contents: [],
         Visibility: [true]
     };
-    Layers.contents.push(new ArrayStructure());
     currentLayer = 1;
     previousTool = "";
     frameRate(60);
     dragging = false;
-    activeLayer = 1;
+    numberLayer = 1;
     if(window.location.hash === '#canvasDataLoad') {
         loadCanvas();
     } 
-
+    else {
+        Layers.contents.push(new ArrayStructure([]));
+    }
 }
 
 
 
 function loadCanvas() {
-    // var myCanvasData = localStorage['CanvasData'];
-    // localStorage.removeItem('CanvasData');
-    // console.log(myCanvasData)
-
+    // Changing to all the states of the variables to what they were use to
+    var myCanvasData = localStorage['CanvasData'];
+    myCanvasData = JSON.parse(myCanvasData)
+    Layers.Visibility = [];
+    currentLayer = myCanvasData.currentLayerData;
+    for(var i=0; i < myCanvasData.visibilityData.length; i++) {
+        Layers.Visibility.push(myCanvasData.visibilityData[i]);
+    }
+    for(var i=0; i < Object.keys(myCanvasData).length - 2; i++) {
+        if(i != 0 ) {
+            addButton()
+        }
+        else {
+            Layers.contents.push(new ArrayStructure([]));
+        }
+        for(var j=0; j < myCanvasData['contentData' + i].length; j++) {
+            ConvertObjectToClass(myCanvasData['contentData' + i][j], i);
+        }
+    }
+    console.log(Layers.contents)
 }
+
+function ConvertObjectToClass(toolObject, layerNumber) {
+    if(typeof toolObject === 'object') {
+        if(toolObject.name === "Erase") {
+            Layers.contents[layerNumber].push(new Erase(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY))
+        }
+        if(toolObject.name === "PaintBrush") {
+            Layers.contents[layerNumber].push(new PaintBrush(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY))
+        }
+        if(toolObject.name === "Line") {
+            Layers.contents[layerNumber].push(new Line(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY))
+        }
+        if(toolObject.name === "Elipse") {
+            Layers.contents[layerNumber].push(new Elipse(toolObject.strokeSize, toolObject.Colour, toolObject.Fill,  toolObject.mX, toolObject.mY, toolObject.sizeX, toolObject.sizeY))
+        }
+        if(toolObject.name === "Rectangle") {
+            Layers.contents[layerNumber].push(new Rectangle(toolObject.strokeSize, toolObject.Colour,  toolObject.Fill, toolObject.mX, toolObject.mY, toolObject.sizeX, toolObject.sizeY))
+        }
+    }
+    else {
+        Layers.contents[layerNumber].push(toolObject);
+    }
+}
+
 
 function clearCanvas() {
     output = '<div id="LayerCounter' + currentLayer + '" class="individualLayer">' +
             '<li>Layer ' + currentLayer + '</li>' +
             '<button type="button" id="visibleButton' + currentLayer + '" onclick="ToggleVisible(' + currentLayer + ')">Visible</button>' +
             '</div>';
-    for(var i=currentLayer; i >  1; i--) {
+    for(var i=numberLayer; i >  1; i--) {
         document.getElementById('LayerCounter' + i).outerHTML = "";
     
     }  //Get Rid of all the Layers
@@ -77,9 +118,9 @@ function clearCanvas() {
         contents: [],
         Visibility: [true]
     };
-    Layers.contents.push(new ArrayStructure());
-    activeLayer = 1;
-    document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#1d1d1d"; //Reset Layers and content
+    Layers.contents.push(new ArrayStructure([]));
+    numberLayer = 1;
+    document.getElementById("LayerCounter" + numberLayer).style.backgroundColor = "#1d1d1d"; //Reset Layers and content
 }
 
 
@@ -113,12 +154,10 @@ function draw() {
 
 
 function LayerClickDetection() { //creates a clickable event for the layer
-    for(var i=1; i < currentLayer + 1; i++) {
+    for(var i=1; i < numberLayer + 1; i++) {
         var element = document.getElementById("LayerCounter" + i);
         element.addEventListener('click', Layer);
     }
-       
-        
 }
 
 function Layer() { //changes the colour of the new layer to dark which means its active
@@ -168,22 +207,23 @@ function checkClick() { //checks if mouse is inside the canvas
 }
 
 function addButton() {
-    if (currentLayer != 9) {   //capped at layer 9
-        currentLayer += 1;
-        Layers.Visibility.push(true);
-        Layers.contents.push(new ArrayStructure());  //adds new layer
-        var output = '';   //html for another button
-        output = '<div id="LayerCounter' + currentLayer+ '" class="individualLayer">' +
-            '<li>Layer ' + currentLayer + '</li>' +
-            '<button type="button" id="visibleButton' + currentLayer + '" onclick="ToggleVisible(' + currentLayer + ')">Visible</button>' +
-            '</div>';
-        document.getElementById('Layer').innerHTML += output;
-        document.getElementById("LayerCounter" + activeLayer).style.backgroundColor = "#33333C";  //Switches ActiveLayer colour to normal
-        activeLayer = currentLayer;
-        document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d"; //Switches currenlayer colour to dark
-
-    }
-    LayerClickDetection();
+    if (numberLayer != 9) { //capped at layer 9
+            numberLayer += 1;
+            Layers.Visibility.push(true);
+            Layers.contents.push(new ArrayStructure([]));
+            var output = '';   //html for another button
+            output = '<div id="LayerCounter' + numberLayer+ '" class="individualLayer">' +
+                '<li>Layer ' + numberLayer + '</li>' +
+                '<button type="button" id="visibleButton' + numberLayer + '" onclick="ToggleVisible(' + numberLayer + ')">Visible</button>' +
+                '</div>';
+            document.getElementById('Layer').innerHTML += output;
+            LayerClickDetection();
+        }
+        //adds new layer
+       
+        // document.getElementById("LayerCounter" + numberLayer).style.backgroundColor = "#33333C";  //Switches ActiveLayer colour to normal
+        // activeLayer = currentLayer;
+        // document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d"; //Switches currenlayer colour to dark 
 }
 
 

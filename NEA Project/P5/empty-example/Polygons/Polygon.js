@@ -1,13 +1,13 @@
 class Polygon { 
-    constructor(strokeSize, Colour, Fill, x, y, name) {
+    constructor(strokeSize, Colour, Fill, x, y, name, sizeXSave=0, sizeYSave=0) {
         this.name  = name;
         this.strokeSize = strokeSize;
         this.Colour = Colour;
         this.Fill = Fill;
         this.mX = x;
         this.mY = y;
-        this.sizeX = 0;
-        this.sizeY = 0;
+        this.sizeX = sizeXSave;
+        this.sizeY = sizeYSave;
     }
     
     drag() {

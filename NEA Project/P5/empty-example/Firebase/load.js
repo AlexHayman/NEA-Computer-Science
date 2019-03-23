@@ -1,11 +1,12 @@
-const canvasList = document.querySelector('#Links')
+const canvasList = document.querySelector('#Links');
+localStorage.removeItem('CanvasData');
 
 
 function uploadCanvas(doc) {
     //Adding the links for the data
     let openLink = document.createElement('a')
     openLink.setAttribute('data-id', doc.id)
-    openLink.setAttribute('href', "#");
+    openLink.setAttribute('href', "index.html#canvasDataLoad");
     openLink.innerHTML = doc.data().NameField;
     canvasList.appendChild(openLink)
     
@@ -23,6 +24,8 @@ function uploadCanvas(doc) {
             data["contentData" + i] = doc.data()["contentField" + i];
         }
         console.log(data)
+        dataJSON = JSON.stringify(data);
+        localStorage.setItem('CanvasData', dataJSON)
     });
 
 }

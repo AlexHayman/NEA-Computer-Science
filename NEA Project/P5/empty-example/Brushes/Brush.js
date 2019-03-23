@@ -1,12 +1,18 @@
 //Parent class for the brust
 
 class Brush {
-    constructor(strokeSize, name, Colour) {
+    constructor(strokeSize, name, Colour, saved=false, mouseXPos=0, mouseYPos=0) {
         this.strokeSize = strokeSize;
         this.Colour = Colour;
-        this.name = name;
-        this.mX = mouseX;
-        this.mY = mouseY;
+        this.name = name
+        if(!saved) {
+            this.mX = mouseX;
+            this.mY = mouseY;
+        }
+        else {
+            this.mX =  mouseXPos
+            this.mY = mouseYPos
+        }
 
     }
 
