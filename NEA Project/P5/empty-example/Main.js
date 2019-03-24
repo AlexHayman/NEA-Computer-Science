@@ -133,17 +133,10 @@ function draw() {
         for(object=0; object < Layers.contents[eachLayer].item.length; object++) {
             try {
                 if(Layers.Visibility[eachLayer]) { //won't  display the layer is it's invisible
-                
-                    if (Layers.contents[eachLayer].item[object].name === "Pencil") {
-                     
-   
-                    }
-                    else {
-                        Layers.contents[eachLayer].item[object].display();
+                    Layers.contents[eachLayer].item[object].display();
                     }       
                     
-                }
-            }
+                }   
             catch(err) {    
 
             }
