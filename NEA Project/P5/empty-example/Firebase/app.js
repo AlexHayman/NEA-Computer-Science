@@ -4,38 +4,38 @@ var listLayer = [];
 
 //Firebase doesnt like objects with mthod so converting to standalone objects without methods
 function objectConverter(Object, list) {
-    toolObject = {}
-    for(i in Object) {
+    toolObject = {};
+    for(var i in Object) {
         toolObject[i]  = Object[i];   
     }
-    list.push(toolObject)
-    return list
+    list.push(toolObject);
+    return list;
 }
 
 
 
 form.addEventListener('click', (e) => {
     //Pop up Box code
-    var name = prompt("Please enter a file name: ")
+    var name = prompt("Please enter a file name: ");
     if (name == null || name == "") {
-        name = "UnamedPieceOfWork"
+        name = "UnamedPieceOfWork";
     }
-    var objectList 
+    var objectList;
     e.preventDefault(); 
     addingObject = { 
         NameField: name,
         CurrentLayerField: currentLayer,
         VisibilityField: Layers.Visibility
-    }
+    };
     if(Layers.contents != null) {
         for(var i=0; i < Layers.contents.length; i++){
-            objectList = []
+            objectList = [];
             for(var j=0; j < Layers.contents[i].item.length; j++) {
                 if(typeof Layers.contents[i].item[j] === 'object') {
-                    objectList = objectConverter(Layers.contents[i].item[j], objectList)
+                    objectList = objectConverter(Layers.contents[i].item[j], objectList);
                 }
                 else {
-                    objectList.push(Layers.contents[i].item[j])
+                    objectList.push(Layers.contents[i].item[j]);
                 }
             }
             

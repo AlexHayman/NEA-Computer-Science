@@ -59,16 +59,16 @@ function setup() {
 
 function loadCanvas() {
     // Changing to all the states of the variables to what they were use to
-    var myCanvasData = localStorage['CanvasData'];
-    myCanvasData = JSON.parse(myCanvasData)
+    var myCanvasData = localStorage.CanvasData;
+    myCanvasData = JSON.parse(myCanvasData);
     Layers.Visibility = [];
     currentLayer = myCanvasData.currentLayerData;
     for(var i=0; i < myCanvasData.visibilityData.length; i++) {
         Layers.Visibility.push(myCanvasData.visibilityData[i]);
     }
-    for(var i=0; i < Object.keys(myCanvasData).length - 2; i++) {
+    for(i=0; i < Object.keys(myCanvasData).length - 2; i++) {
         if(i != 0 ) {
-            addButton()
+            addButton();
         }
         else {
             Layers.contents.push(new ArrayStructure([]));
@@ -77,25 +77,25 @@ function loadCanvas() {
             ConvertObjectToClass(myCanvasData['contentData' + i][j], i);
         }
     }
-    console.log(Layers.contents)
+    console.log(Layers.contents);
 }
 
 function ConvertObjectToClass(toolObject, layerNumber) {
     if(typeof toolObject === 'object') {
         if(toolObject.name === "Erase") {
-            Layers.contents[layerNumber].push(new Erase(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY))
+            Layers.contents[layerNumber].push(new Erase(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY));
         }
         if(toolObject.name === "PaintBrush") {
-            Layers.contents[layerNumber].push(new PaintBrush(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY))
+            Layers.contents[layerNumber].push(new PaintBrush(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY));
         }
         if(toolObject.name === "Line") {
-            Layers.contents[layerNumber].push(new Line(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY))
+            Layers.contents[layerNumber].push(new Line(toolObject.strokeSize, toolObject.Colour,  toolObject.mX, toolObject.mY));
         }
         if(toolObject.name === "Elipse") {
-            Layers.contents[layerNumber].push(new Elipse(toolObject.strokeSize, toolObject.Colour, toolObject.Fill,  toolObject.mX, toolObject.mY, toolObject.sizeX, toolObject.sizeY))
+            Layers.contents[layerNumber].push(new Elipse(toolObject.strokeSize, toolObject.Colour, toolObject.Fill,  toolObject.mX, toolObject.mY, toolObject.sizeX, toolObject.sizeY));
         }
         if(toolObject.name === "Rectangle") {
-            Layers.contents[layerNumber].push(new Rectangle(toolObject.strokeSize, toolObject.Colour,  toolObject.Fill, toolObject.mX, toolObject.mY, toolObject.sizeX, toolObject.sizeY))
+            Layers.contents[layerNumber].push(new Rectangle(toolObject.strokeSize, toolObject.Colour,  toolObject.Fill, toolObject.mX, toolObject.mY, toolObject.sizeX, toolObject.sizeY));
         }
     }
     else {
