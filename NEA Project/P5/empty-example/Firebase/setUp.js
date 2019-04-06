@@ -6,5 +6,5 @@ var config = {
     storageBucket: "nea-computer-science-8934a.appspot.com",
     messagingSenderId: "335662589354"
   };
-  firebase.initializeApp(config);
-  const db = firebase.firestore();
+firebase.initializeApp(config);
+const db = firebase.firestore();

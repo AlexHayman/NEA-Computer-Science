@@ -182,9 +182,9 @@ function ToggleVisible(number) { //toggle wheter the layer is display or not
 
 }
 
-function checkDraw(drawingMethod) {     //check if the layer you selected is visible. If it isn't don't draw the ting
+function checkDraw(drawingObject) {     //check if the layer you selected is visible. If it isn't don't draw the ting
     if(Layers.Visibility[currentLayer - 1]) {
-            Layers.contents[currentLayer - 1].push(drawingMethod);
+            Layers.contents[currentLayer - 1].push(drawingObject);
         }
 }
 

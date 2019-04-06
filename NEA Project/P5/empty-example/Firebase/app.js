@@ -2,7 +2,7 @@ const form = document.querySelector('#Save');
 var listLayer = [];
 
 
-//Firebase doesnt like objects with mthod so converting to standalone objects without methods
+//Firebase doesnt like objects with mthod so converting to standalone objects without methods and storing tit
 function objectConverter(Object, list) {
     toolObject = {};
     for(var i in Object) {

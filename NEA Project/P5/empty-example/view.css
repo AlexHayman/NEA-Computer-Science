@@ -1,0 +1,23 @@
+body {
+    background:#202123;
+    font-family: "Arial";
+    color: white;
+}
+
+
+#Links  {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#Links a {
+    color: white;
+    border: 1px solid white;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-decoration: none;
+    font-size: 25px;
+
+}
