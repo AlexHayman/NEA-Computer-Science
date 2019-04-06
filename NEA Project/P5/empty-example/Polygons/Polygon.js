@@ -16,11 +16,11 @@ class Polygon {
     }
     
     display() {
-        fill(this.Fill);
+        fill(this.Fill);    //Sets settings of the stroke and fill before drawing
         stroke(this.Colour);
         strokeWeight(this.strokeSize);
         if(this.name === "Elipse") {
-            ellipse(this.mX, this.mY, this.sizeX * 2.75, this.sizeY * 2.75);
+            ellipse(this.mX, this.mY, this.sizeX * 2.75, this.sizeY * 2.75); //Changing sizeX and sizeY changes the shape size
         }
         if(this.name === "Rectangle") {
             rect(this.mX, this.mY, this.sizeX , this.sizeY);

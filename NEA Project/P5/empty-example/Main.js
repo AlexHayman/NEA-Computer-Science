@@ -4,30 +4,30 @@ window.addEventListener("load", startUp, false);
 
 
 
-function startUp() {
+function startUp() {    
     strokeColour = "#000000";
     fillColour = '#000000';
     backgroundColor = '#ffffff';
     strokeColourWeb = document.querySelector("#strokeColour");
     strokeColourWeb.value = "#000000";
-    strokeColourWeb.addEventListener("input", updateStroke, false);
+    strokeColourWeb.addEventListener("input", updateStroke, false); //sets the colour of the colour picker to black
     fillColourWeb = document.querySelector("#fillColour");
     fillColourWeb.value = "#000000";
     fillColourWeb.addEventListener("input", updateFill, false);
     strokeColourWeb.select();
     fillColourWeb.select();
     var element = document.getElementById("LayerCounter1");
-    element.addEventListener('click', Layer);
+    element.addEventListener('click', Layer); //When the user clicks on the box, function click() will run
     document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d";
 }
 
 function updateStroke(event) {
-    strokeColour = event.target.value;
+    strokeColour = event.target.value; //Changes stroke colour base on what the user has picked
 }
 
 
 function updateFill(event) {
-    fillColour = event.target.value;
+    fillColour = event.target.value; //Changes the fill colour base on what the user has picked
  }
 
 function setup() {
@@ -35,7 +35,7 @@ function setup() {
     canvas.parent('canvas');
     currentTool = "brush";
     canvas.mousePressed(click);
-    strokeSizeSlider = createSlider(0, 15, 5);
+    strokeSizeSlider = createSlider(0, 15, 5); //Creates slider for the stroke
     strokeSizeSlider.position(1150, 100);
     shapeDefualtSize = 30;
     Layers = {
@@ -47,7 +47,7 @@ function setup() {
     frameRate(60);
     dragging = false;
     numberLayer = 1;
-    if(window.location.hash === '#canvasDataLoad') {
+    if(window.location.hash === '#canvasDataLoad') { //When the user loads a canvas from the saves, this is loaded
         loadCanvas();
     } 
     else {
@@ -80,6 +80,7 @@ function loadCanvas() {
     console.log(Layers.contents);
 }
 
+//Converting the objcect without methods to objects with methods
 function ConvertObjectToClass(toolObject, layerNumber) {
     if(typeof toolObject === 'object') {
         if(toolObject.name === "Erase") {
@@ -105,6 +106,7 @@ function ConvertObjectToClass(toolObject, layerNumber) {
 
 
 function clearCanvas() {
+    //This section gets rid of the layer box except the fire one
     output = '<div id="LayerCounter' + currentLayer + '" class="individualLayer">' +
             '<li>Layer ' + currentLayer + '</li>' +
             '<button type="button" id="visibleButton' + currentLayer + '" onclick="ToggleVisible(' + currentLayer + ')">Visible</button>' +
@@ -126,13 +128,13 @@ function clearCanvas() {
 
 function draw() {
     strokeSize = strokeSizeSlider.value();
-    document.getElementById("strokeSize").innerHTML = strokeSize;
-    background(255);
+    document.getElementById("strokeSize").innerHTML = strokeSize; //Gets the value from the stroke slider
+    background(255); //Fills the background white
 
     for (eachLayer=0; eachLayer < Layers.contents.length; eachLayer++) { //displays all the lines, stokes shapes in the Layers
         for(object=0; object < Layers.contents[eachLayer].item.length; object++) {
             try {
-                if(Layers.Visibility[eachLayer]) { //won't  display the layer is it's invisible
+                if(Layers.Visibility[eachLayer]) { //won't display the layer if is it's invisible
                     Layers.contents[eachLayer].item[object].display();
                     }       
                     
@@ -212,11 +214,6 @@ function addButton() {
             document.getElementById('Layer').innerHTML += output;
             LayerClickDetection();
         }
-        //adds new layer
-       
-        // document.getElementById("LayerCounter" + numberLayer).style.backgroundColor = "#33333C";  //Switches ActiveLayer colour to normal
-        // activeLayer = currentLayer;
-        // document.getElementById("LayerCounter" + currentLayer).style.backgroundColor = "#1d1d1d"; //Switches currenlayer colour to dark 
 }
 
 
@@ -263,7 +260,7 @@ function click() {
             checkDraw(new Line(strokeSize, strokeColour));
         }
         if (currentTool === "Rectangle" ) {
-            checkDraw(new Rectangle(strokeSize, strokeColour, fillColour, mouseX, mouseY)); //makes the shape bigger
+            checkDraw(new Rectangle(strokeSize, strokeColour, fillColour, mouseX, mouseY)); 
         }
         if (currentTool === "Elipse") {
             checkDraw(new Elipse(strokeSize, strokeColour, fillColour, mouseX, mouseY));
@@ -275,6 +272,8 @@ function click() {
 function undo() {
 var isLine = false;
   if(Layers.Visibility[currentLayer - 1]) { //Check if the layer is vivible, if it isnt, don't do it
+    //This whole if statemetns are for removing lines when undo. When creating a line, it requires
+    // two clicks, creating a point and then another. When doing undo, you want to undo those two actions at once
         if( Layers.contents[currentLayer - 1].item.length != 0) {
             if (Layers.contents[currentLayer - 1].item.length >= 3) {
                 if(Layers.contents[currentLayer-1].lastElement(1).name === "Line" && Layers.contents[currentLayer-1].lastElement(2).name === "Line" && Layers.contents[currentLayer-1].lastElement(3).name != "Line") {

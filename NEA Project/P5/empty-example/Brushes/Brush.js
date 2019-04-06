@@ -5,7 +5,7 @@ class Brush {
         this.strokeSize = strokeSize;
         this.Colour = Colour;
         this.name = name;
-        if(!saved) {
+        if(!saved) {    //This ensures any saved object from the database keep their values
             this.mX = mouseX;
             this.mY = mouseY;
         }
@@ -17,7 +17,7 @@ class Brush {
     }
 
     display() {
-        strokeCap(ROUND);
+        strokeCap(ROUND);   //Changes the stroke properties before drawing
         strokeWeight(this.strokeSize);
         stroke(this.Colour);
         if(object != 0) { //creates a line between the last point and the mouse position

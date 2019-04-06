@@ -1,3 +1,4 @@
+//Creating a link with the database so that the program can user it.
 var config = {
     apiKey: "AIzaSyD0gplWNYkvYwBiCvSx0eP2IjsGUZvIkso",
     authDomain: "nea-computer-science-8934a.firebaseapp.com",

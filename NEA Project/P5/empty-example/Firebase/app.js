@@ -16,7 +16,7 @@ function objectConverter(Object, list) {
 
 form.addEventListener('click', (e) => {
     //Pop up Box code
-    var name = prompt("Please enter a file name: ");
+    var name = prompt("Please enter a file name: "); //default file name if user gives nothing
     if (name == null || name == "") {
         name = "UnamedPieceOfWork";
     }
@@ -27,22 +27,22 @@ form.addEventListener('click', (e) => {
         CurrentLayerField: currentLayer,
         VisibilityField: Layers.Visibility
     };
-    if(Layers.contents != null) {
+    if(Layers.contents != null) { //Only writes the drawing from a layer to the database if there are drawings
         for(var i=0; i < Layers.contents.length; i++){
             objectList = [];
             for(var j=0; j < Layers.contents[i].item.length; j++) {
-                if(typeof Layers.contents[i].item[j] === 'object') {
+                if(typeof Layers.contents[i].item[j] === 'object') { //If it's an object
                     objectList = objectConverter(Layers.contents[i].item[j], objectList);
                 }
                 else {
-                    objectList.push(Layers.contents[i].item[j]);
+                    objectList.push(Layers.contents[i].item[j]); //This is to add "Mouse Released"
                 }
             }
             
-            addingObject["contentField" + i] = objectList;
+            addingObject["contentField" + i] = objectList; //the i ensures each field is unique
         }      
     }
-    db.collection('Canvases').add(
+    db.collection('Canvases').add( //Process of adding it to the database
         addingObject  
     );
 });
